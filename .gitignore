@@ -1,0 +1,44 @@
+# Ignore Python virtual environment
+Major/
+venv/
+.env/
+env/
+ENV/
+*.env
+*.venv
+
+# Ignore compiled Python files
+*.py[cod]
+__pycache__/
+*.so
+*.egg-info/
+*.egg
+.Python
+build/
+dist/
+
+# Ignore dataset and large files (except .pt files)
+Datasets/
+*.csv
+*.h5
+*.pth
+*.bin
+*.tar.gz
+*.zip
+*.npy
+*.npz
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+*.log
+*.tmp
+*.bak
+*.cache
+*.classpath
+*.project
+*.settings/
