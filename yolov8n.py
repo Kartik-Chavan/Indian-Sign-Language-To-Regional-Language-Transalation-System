@@ -214,7 +214,7 @@ FPS = 2
 MAX_SIGNS = 5
 DISPLAY_TIME = 2
 ANALYSIS_DURATION = 1
-MODEL_PATH = 'Custom_Model.pt'
+MODEL_PATH = 'Custom_Train_v12.pt'
 
 # Font Paths for Different Languages
 FONT_PATHS = {
