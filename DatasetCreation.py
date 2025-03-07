@@ -1,5 +1,6 @@
 import os
 import cv2
+import time
 
 DATA_DIR = './Datasets'
 if not os.path.exists(DATA_DIR):
@@ -32,13 +33,15 @@ try:
             # Wait for 'S' to start capturing
             while True:
                 ret, frame = cap.read()
+                flipped_frame = frame;
+              #  flipped_frame = cv2.flip(frame,1);
                 if not ret:
                     continue
-                cv2.putText(frame, f'Capturing {class_name}: Part {part}', (50, 50), 
+                cv2.putText(flipped_frame, f'Capturing {class_name}: Part {part}', (50, 50), 
                             cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
-                cv2.putText(frame, 'Press "S" to start | "Q" to quit', (50, 100), 
+                cv2.putText(flipped_frame, 'Press "S" to start | "Q" to quit', (50, 100), 
                             cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
-                cv2.imshow('frame', frame)
+                cv2.imshow('frame', flipped_frame)
                 key = cv2.waitKey(25)
                 if key == ord('s'):
                     break
@@ -47,30 +50,36 @@ try:
 
             # 5-second countdown
             for i in range(5, 0, -1):
-                ret, frame = cap.read()
-                cv2.putText(frame, str(i), (300, 300), 
+                ret, flipped_frame = cap.read()
+                cv2.putText(flipped_frame, str(i), (300, 300), 
                            cv2.FONT_HERSHEY_SIMPLEX, 5, (0, 0, 255), 10)
-                cv2.imshow('frame', frame)
+                cv2.imshow('frame', flipped_frame)
                 cv2.waitKey(1000)
             
-            # Capture 100 images
+            # Capture 50 images with slower capture rate
             counter = 0
-            while counter < 100:
-                ret, frame = cap.read()
-                cv2.imshow('frame', frame)
-                cv2.waitKey(25)
-                cv2.imwrite(os.path.join(part_dir, f'{counter}.jpg'), frame)
+            while counter < 45:
+                ret, flipped_frame = cap.read()
+                cv2.imshow('frame', flipped_frame)
+                # Increased delay from 25ms to 50ms between captures
+                key = cv2.waitKey(85)
+                # Updated filename format
+                cv2.imwrite(os.path.join(part_dir, f'{counter}_{class_name}_part {part}.jpg'), flipped_frame)
                 counter += 1
+
+                # Additional safety check for quit during capture
+                if key == ord('q'):
+                    raise KeyboardInterrupt
 
             # Prompt to continue after each part
             if not (class_name == class_names[-1] and part == 3):
                 while True:
-                    ret, frame = cap.read()
-                    cv2.putText(frame, 'Part completed!', (50, 50), 
+                    ret, flipped_frame = cap.read()
+                    cv2.putText(flipped_frame, 'Part completed!', (50, 50), 
                                cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
-                    cv2.putText(frame, 'Press "S" to continue | "Q" to quit', (50, 100), 
+                    cv2.putText(flipped_frame, 'Press "S" to continue | "Q" to quit', (50, 100), 
                                cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
-                    cv2.imshow('frame', frame)
+                    cv2.imshow('frame', flipped_frame)
                     key = cv2.waitKey(25)
                     if key == ord('s'):
                         break

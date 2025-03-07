@@ -214,7 +214,7 @@ FPS = 2
 MAX_SIGNS = 5
 DISPLAY_TIME = 2
 ANALYSIS_DURATION = 1
-MODEL_PATH = 'Custom_Train_v12.pt'
+MODEL_PATH = 'Custom_Model.pt'
 
 # Font Paths for Different Languages
 FONT_PATHS = {
@@ -224,7 +224,28 @@ FONT_PATHS = {
     'pa': "./src/scripts/NotoSansGurmukhi-Regular.ttf",
     'ta': "./src/scripts/NotoSansTamil-Regular.ttf"
 }
-
+CORE_SIGNS = [
+    # Medical Essentials
+    "Cough", "Headache", "Fever", "Band Aid",
+    
+    # General Fundamentals
+    "What", "When", "Request", "Stop", 
+    
+    # Daily Life
+    "Eat", "Love", "Like",
+    
+    # Locations
+    "Home", "School",
+    
+    # Identity
+    "I",
+    
+    # Social
+    "Bye",
+    
+    # Numbers
+    "0", "1", "2", "3", "4", "5", "6", "8", "9"
+]
 TRANSLATION_MAP = {
     'en': {'C': 'C', 'Friends': 'Friends', 'H': 'H', 'Hello': 'Hello', 'L': 'L', 'O': 'O', 'Please': 'Please', 'Thanks': 'Thanks'},
     'hi': {'C': 'सी', 'Friends': 'दोस्त', 'H': 'एच', 'Hello': 'नमस्ते', 'L': 'एल', 'O': 'ओ', 'Please': 'कृपया', 'Thanks': 'धन्यवाद'},
@@ -314,7 +335,10 @@ def handle_user_input(frame, detected_signs, display_time, lang_code):
         draw.text((20, 50), display_text, fill="green", font=font)
         display_frame = cv2.cvtColor(np.array(pil_img), cv2.COLOR_RGB2BGR)
         cv2.imshow('Detected Signs', display_frame)
-        cv2.waitKey(DISPLAY_TIME * 1000)
+        cv2.waitKey(DISPLAY_TIME * 1200)
+        detected_signs.clear()
+        gesture_buffer = []
+        cv2.destroyWindow('Detected Signs')
     
     elif key == ord('c'):
         # Change language

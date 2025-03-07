@@ -2,6 +2,7 @@
 Major/
 venv/
 .env/
+Datasets/
 env/
 ENV/
 *.env
@@ -18,7 +19,7 @@ build/
 dist/
 
 # Ignore dataset and large files (except .pt files)
-Datasets/
+
 *.csv
 *.h5
 *.pth
