@@ -1,11 +1,13 @@
 Indian-Sign-Language-To-Regional-Language-Transalation-System
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Overview
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 This project is a Sign Language Detection and Translation System that uses computer vision and machine learning to detect sign language gestures and translate them into multiple regional languages. The system is built using YOLO (You Only Look Once) for object detection and Google's Gemini API for generating coherent sentences from detected gestures. The application provides a user-friendly interface built with PyQt5, allowing users to interact with the system in real-time.
 
 The system supports multiple languages, including English, Hindi, Marathi, Punjabi, and Tamil, and can translate detected gestures into meaningful sentences in the selected language. The project also includes tools for dataset creation and model training, making it a comprehensive solution for sign language recognition and translation.
 
 Features
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Real-Time Sign Language Detection:
 
 Detects sign language gestures using a pre-trained YOLO model.
@@ -42,7 +44,7 @@ An images folder contains collages of all gestures, making it easy for users to 
 
 
 Project Structure :-
-
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Sign-Language-Detection/
 ├── app.py                   # Main application for sign language detection and translation
 ├── file.py                   # Secondary GUI application for sign language detection and translation
