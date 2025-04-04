@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kara Technologies</title>
+    <link rel="icon" href="../static/logo.png" sizes="32x32" />
+    <link rel="icon" href="../static/logo.png" sizes="16x16" />
+    <link rel="apple-touch-icon" href="../static/logo.png" />
+    <link rel="shortcut icon" href="../static/logo.png" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .dark {
+            color-scheme: dark;
+        }
+
+        
+
+       
+           
+
+    </style>
+</head>
+<body class="bg-white dark:bg-gray-900 transition-colors duration-300">
+    <!-- Dark Mode Toggle -->
+    <div class="fixed top-4 right-4 z-50">
+        <button id="themeToggle" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200">
+            <i class="fas fa-moon dark:hidden"></i>
+            <i class="fas fa-sun hidden dark:block"></i>
+        </button>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="bg-white dark:bg-gray-800 shadow-sm py-4 px-6 md:px-12 lg:px-24 transition-colors duration-300">
+        <div class="flex justify-between items-center">
+            <div class="flex items-center">
+                <img src="../static/logo.png" alt="Company Logo" class="h-8">
+            </div>
+            <div class="hidden md:flex space-x-8">
+                <a href="#" class="text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium">Products</a>
+                <a href="#" class="text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium">Solutions</a>
+                <a href="#" class="text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium">Resources</a>
+                <a href="#" class="text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium">Company</a>
+                <a href="#" class="text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium">Contact</a>
+            </div>
+            <div class="hidden md:block">
+                <button class="bg-primary-600 hover:bg-primary-700 text-white px-6 py-2 rounded-md font-medium transition">Get Started</button>
+            </div>
+            <div class="md:hidden">
+                <i class="fas fa-bars text-gray-600 text-xl"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="py-16 md:py-24 px-6 md:px-12 lg:px-24">
+        <div class="max-w-4xl mx-auto text-center">
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6">AI-powered Digital Workers for Enterprises</h1>
+            <p class="text-xl text-gray-600 dark:text-gray-300 mb-10 max-w-3xl mx-auto">Kara's digital workers automate complex business processes with human-like understanding and reasoning.</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <button class="bg-primary-600 hover:bg-primary-700 text-white px-8 py-3 rounded-md font-medium transition">Request Demo</button>
+                <button class="border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-8 py-3 rounded-md font-medium hover:bg-gray-50 dark:hover:bg-gray-800 transition">Learn More</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- New Section -->
+    <section class="py-16 px-6 md:px-12 lg:px-24 bg-gray-50 dark:bg-gray-800">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">Our Innovative Approach</h2>
+            <p class="text-xl text-gray-600 dark:text-gray-300 mb-8">
+                Combining cutting-edge AI with human expertise to deliver exceptional results.
+            </p>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-sm">
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">AI-Powered Solutions</h3>
+                    <p class="text-gray-600 dark:text-gray-300">
+                        Leverage our advanced artificial intelligence to automate complex tasks.
+                    </p>
+                </div>
+                <div class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-sm">
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">Human-Centered Design</h3>
+                    <p class="text-gray-600 dark:text-gray-300">
+                        Intuitive interfaces designed for seamless human-AI collaboration.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Logo Cloud -->
+    <section class="py-12 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 lg:px-24">
+            <p class="text-center text-gray-500 mb-8">Trusted by leading enterprises</p>
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 items-center">
+                <img src="https://www.kara.tech/wp-content/uploads/2022/10/logo-1.svg" alt="Logo 1" class="h-8 mx-auto opacity-70">
+                <img src="https://www.kara.tech/wp-content/uploads/2022/10/logo-2.svg" alt="Logo 2" class="h-8 mx-auto opacity-70">
+                <img src="https://www.kara.tech/wp-content/uploads/2022/10/logo-3.svg" alt="Logo 3" class="h-8 mx-auto opacity-70">
+                <img src="https://www.kara.tech/wp-content/uploads/2022/10/logo-4.svg" alt="Logo 4" class="h-8 mx-auto opacity-70">
+                <img src="https://www.kara.tech/wp-content/uploads/2022/10/logo-5.svg" alt="Logo 5" class="h-8 mx-auto opacity-70">
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-20 px-6 md:px-12 lg:px-24">
+
+        <div class="max-w-4xl mx-auto text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">Why Choose Kara Digital Workers?</h2>
+            <p class="text-xl text-gray-600 dark:text-gray-300">Our AI-powered Software combine the best of human and machine capabilities</p>
+            <img src="../static/Workflow.png" alt="Workflow Diagram" class="mx-auto max-w-full h-auto rounded-lg shadow-lg mt-8">
+
+        </div>
+        
+      
+           
+    </section>
+    <!-- Workflow Info Section -->
+    <section class="py-20 px-6 md:px-12 lg:px-24 bg-white dark:bg-gray-800">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-12">
+                <!-- KAT Column -->
+                <div class="bg-gray-50 dark:bg-gray-700 p-8 rounded-xl shadow-sm">
+                    <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+                        <span class="text-primary-600">KAT</span>
+                    </h2>
+                    <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-6">Kara Auto Translate</h3>
+                    
+                    <h4 class="text-lg font-bold text-gray-800 dark:text-gray-200 mb-4">How It Works</h4>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <h5 class="font-bold text-gray-800 dark:text-gray-200 mb-2">1. Kara Gloss Translator</h5>
+                            <p class="text-gray-600 dark:text-gray-300">
+                                Our AI converts English text into our Kara Notation System (KNS), a structured representation that captures grammar, morphology, phonology, emotions, and sentiment - elements essential for accurate sign language translation.
+                            </p>
+                        </div>
+                        
+                        <div>
+                            <h5 class="font-bold text-gray-800 dark:text-gray-200 mb-2">2. Sign Language Blending Engine</h5>
+                            <p class="text-gray-600 dark:text-gray-300">
+                                Using our extensive sign language database, the system generates lifelike motions, ensuring smooth, natural signing that aligns with linguistic and cultural nuances.
+                            </p>
+                        </div>
+                        
+                        <div>
+                            <h5 class="font-bold text-gray-800 dark:text-gray-200 mb-2">3. Real-time Rendering</h5>
+                            <p class="text-gray-600 dark:text-gray-300">
+                                The final translation is rendered into a high-quality sign language video, ready for immediate use.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <button class="mt-8 bg-primary-600 hover:bg-primary-700 text-white px-6 py-3 rounded-md font-medium transition">
+                        Join API Beta Program
+                    </button>
+                </div>
+                
+                <!-- KAT+Hybrid Column -->
+                <div class="bg-gray-50 dark:bg-gray-700 p-8 rounded-xl shadow-sm">
+                    <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+                        <span class="text-primary-600">KAT + Hybrid</span>
+                    </h2>
+                    <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-6">Combination with Human Review</h3>
+                    
+                    <div class="flex items-center justify-between mb-6">
+                        <div class="text-center">
+                            <img src="https://static.wixstatic.com/media/fd1975_b1b59cac7cbd4c999fdd71ac59d8a01b~mv2.png" alt="AI Auto Translation" class="h-24 mx-auto mb-2">
+                            <p class="text-sm text-gray-600 dark:text-gray-300">AI Auto Translation</p>
+                        </div>
+                        <div class="text-center">
+                            <img src="https://static.wixstatic.com/media/fd1975_66799dcf145d468cbac2293f9c40d4b2~mv2.png" alt="Human Review" class="h-24 mx-auto mb-2">
+                            <p class="text-sm text-gray-600 dark:text-gray-300">Human Review</p>
+                        </div>
+                    </div>
+                    
+                    <h4 class="text-lg font-bold text-gray-800 dark:text-gray-200 mb-4">How It Works</h4>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <h5 class="font-bold text-gray-800 dark:text-gray-200 mb-2">1. KAT (Kara Auto Translate)</h5>
+                            <p class="text-gray-600 dark:text-gray-300">
+                                Our AI generates an initial sign language translation using the Kara Translation API.
+                            </p>
+                        </div>
+                        
+                        <div>
+                            <h5 class="font-bold text-gray-800 dark:text-gray-200 mb-2">2. Certified Deaf Interpreter (CDI) Review</h5>
+                            <p class="text-gray-600 dark:text-gray-300">
+                                In-house or contracted CDIs review the translation using our custom software and Kara Notation System, making refinements to ensure complete accuracy.
+                            </p>
+                        </div>
+                        
+                        <p class="text-gray-600 dark:text-gray-300">
+                            This solution guarantees culturally appropriate, linguistically precise translations while continuously enhancing AI capabilities through expert feedback.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+                                   
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12 px-6 md:px-12 lg:px-24 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div>
+                <img src="../static/logo.png" alt="Company Logo" class="h-8 mb-6 invert dark:invert-0">
+                <p class="text-gray-400">AI-powered digital workers for enterprises</p>
+            </div>
+            <div>
+                <h4 class="text-lg font-semibold mb-4">Products</h4>
+                <ul class="space-y-2">
+                    <li><a href="#" class="text-gray-400 hover:text-white">Digital Workers</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white">Platform</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white">Solutions</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-lg font-semibold mb-4">Company</h4>
+                <ul class="space-y-2">
+                    <li><a href="#" class="text-gray-400 hover:text-white">About Us</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white">Careers</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white">Contact</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-lg font-semibold mb-4">Connect</h4>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook-f"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto pt-12 mt-12 border-t border-gray-800 text-center text-gray-400">
+            <p>© 2023 Kara Technologies. All rights reserved.</p>
+        </div>
+    </footer>
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+        
+        // Check for saved theme preference or use system preference
+        const savedTheme = localStorage.getItem('theme') || 
+                         (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        
+        // Apply the saved theme
+        if (savedTheme === 'dark') {
+            html.classList.add('dark');
+        } else {
+            html.classList.remove('dark');
+        }
+        
+        // Toggle theme on button click
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            const theme = html.classList.contains('dark') ? 'dark' : 'light';
+            localStorage.setItem('theme', theme);
+        });
+    </script>
+</body>
+</html>

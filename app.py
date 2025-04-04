@@ -18,7 +18,8 @@ FPS = 2
 MAX_SIGNS = 5
 ANALYSIS_DURATION = 1
 MODEL_PATH = r"C:\Drive F\Code\Project\Indian-Sign-Language-To-Multiple-Regional-Language-Conversion\src\fFnal_training_Results\weights\best.pt"
-GEMINI_API_KEY = "AIzaSyDwqyUxpo7sy-1y1SgfXQtc2FwEIR9VdP8"
+
+GEMINI_API_KEY = "AIzaSyDCGfIOe2f6Un0QX7WHeLL3Nwp652kMxk4"
 
 # Font Paths for Different Languages
 FONT_PATHS = {
@@ -481,10 +482,13 @@ class MainWindow(QMainWindow):
                 - "I Home Bye" → "I am going home, bye."
                 - "I Love Home" → "I love home."
                 - "I Request Stop" → "I request you to stop."
+                - "I 0" -> "What Time it is ?"
+                - " I Home Bye" -> "I am going Home Bye !"
             
             2. If no close match is found, create a new meaningful and professional sentence based on the gesture sequence.
             3. Keep the sentence simple and correct according to {lang_name} grammar.
             4. Respond only with the sentence in {lang_name}.
+            5. If Like and Home comes as neighbour in one sentence choose discart Like and keep only Home and make the sentence.
             """
 
         

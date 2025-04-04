@@ -18,7 +18,7 @@ FPS = 2
 MAX_SIGNS = 5
 ANALYSIS_DURATION = 1
 MODEL_PATH = r"C:\Drive F\Code\Project\Indian-Sign-Language-To-Multiple-Regional-Language-Conversion\src\fFnal_training_Results\weights\best.pt"
-GEMINI_API_KEY = "AIzaSyDwqyUxpo7sy-1y1SgfXQtc2FwEIR9VdP8"
+GEMINI_API_KEY = "AIzaSyDCGfIOe2f6Un0QX7WHeLL3Nwp652kMxk4"
 
 # Font Paths for Different Languages
 FONT_PATHS = {
