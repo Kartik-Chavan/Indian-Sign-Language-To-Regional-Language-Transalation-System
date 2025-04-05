@@ -27,7 +27,9 @@ ANALYSIS_INTERVAL = 0.8   # Sign analysis interval (reduced from 1.0)
 DEFAULT_STATIC_IMAGE = r"C:\Drive F\Code\Project\IWeb-app-Indian-Sign-Language-To-Multiple-Regional-Language-Conversion - Copy\web-app\static\impact-of-ai-sign-language-translators.jpg"  # Add this path
 
 
-# Updated Translation Map
+# ======================
+# Translation Map
+# ======================
 TRANSLATION_MAP = {
     'en': {
         '1': '1', '2': '2', '3': '3', '4': '4', '5': '5',
@@ -84,8 +86,9 @@ class AppState:
         self.detection_active = False  # Add detection state flag
 
 state = AppState()
-
-# Initialize models
+# ======================
+# Initialization
+# ======================
 try:
     model = YOLO(MODEL_PATH)
     genai.configure(api_key=GEMINI_API_KEY)
@@ -162,6 +165,12 @@ def generate_frames():
         if cap is not None:
             cap.release()
 
+
+# ======================
+# API Endpoints (Improved Error Handling)
+# ======================
+
+
 @app.route('/toggle_detection', methods=['POST'])
 def toggle_detection():
     try:
@@ -178,9 +187,6 @@ def toggle_detection():
         logging.error(f"Toggle detection error: {str(e)}")
         return jsonify({"error": str(e)}), 500
 
-@app.route('/')
-def index():
-    return render_template('index.html')
 
 @app.route('/video_feed')
 def video_feed():
@@ -281,6 +287,42 @@ def reset():
     except Exception as e:
         logging.error(f"Reset error: {str(e)}")
         return jsonify({"error": str(e)}), 500
+
+
+
+# ======================
+# Application Routes (Keep All Pages)
+# ======================
+@app.route('/')
+def index():
+    return render_template('core_app.html')
+
+@app.route('/yolo')
+def yolo():
+    return render_template('yolo.html')
+
+@app.route('/llm')
+def llm():
+    return render_template('llm.html')
+
+@app.route('/api')
+def api():
+    return render_template('api.html')
+# ======================
+# Static Files & Errors
+# ======================
+
+@app.route('/static/demos/<path:filename>')
+def demo_files(filename):
+    return send_from_directory('static/demos', filename)
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
+
+@app.errorhandler(500)
+def internal_error(e):
+    return render_template('500.html'), 500
 
 if __name__ == '__main__':
     app.run(debug=True, threaded=True, port=5000)
