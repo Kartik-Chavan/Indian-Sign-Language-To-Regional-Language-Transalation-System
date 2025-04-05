@@ -1,0 +1,230 @@
+{% extends "base.html" %}
+{% block title %}YOLO v8 Detection{% endblock %}
+
+{% block content %}
+<section class="py-20 px-6 md:px-12 lg:px-24">
+    <div class="max-w-6xl mx-auto">
+        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-8">YOLO v8 Gesture Detection</h1>
+        
+        <div class="grid md:grid-cols-2 gap-12 items-center mb-16">
+            <div>
+                <h2 class="heading-2">Real-time ISL Recognition</h2>
+                <p class="body-text mb-6">
+                    Our system uses Ultralytics YOLOv8 for accurate, real-time Indian Sign Language detection.
+                </p>
+                <div class="space-y-4">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 mt-1">
+                            <div class="check-bullet">
+                                <i class="fas fa-check text-white text-xs"></i>
+                            </div>
+                        </div>
+                        <div class="ml-3">
+                            <p class="body-text">Trained on 50+ ISL gestures with 95%+ accuracy</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 mt-1">
+                            <div class="check-bullet">
+                                <i class="fas fa-check text-white text-xs"></i>
+                            </div>
+                        </div>
+                        <div class="ml-3">
+                            <p class="body-text">Processes 30+ FPS on standard hardware</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="feature-card">
+                <div id="videoCarousel" class="w-full">
+                    <div class="v2-carousel-video-wrap">
+                        <div class="v2-carousel-video active">
+                            <video muted playsinline class="rounded-lg w-full">
+                                <source src="https://cdn.prod.website-files.com/5f6bc60e665f54545a1e52a5%2F66cbe0d3a16f4df0bb5a151c_traffic-1-transcode.mp4" type="video/mp4">
+                                <source src="https://cdn.prod.website-files.com/5f6bc60e665f54545a1e52a5%2F66cbe0d3a16f4df0bb5a151c_traffic-1-transcode.webm" type="video/webm">
+                            </video>
+                        </div>
+                        <div class="v2-carousel-video">
+                            <video muted playsinline class="rounded-lg w-full">
+                                <source src="https://cdn.prod.website-files.com/5f6bc60e665f54545a1e52a5%2F66cc83e20f0b4116036ea1b0_candy-1-transcode.mp4" type="video/mp4">
+                                <source src="https://cdn.prod.website-files.com/5f6bc60e665f54545a1e52a5%2F66cc83e20f0b4116036ea1b0_candy-1-transcode.webm" type="video/webm">
+                            </video>
+                        </div>
+                        <div class="v2-carousel-video">
+                            <video muted playsinline class="rounded-lg w-full">
+                                <source src="https://cdn.prod.website-files.com/5f6bc60e665f54545a1e52a5%2F66cbebff29e6f74992d72933_football-1-transcode.mp4" type="video/mp4">
+                                <source src="https://cdn.prod.website-files.com/5f6bc60e665f54545a1e52a5%2F66cbebff29e6f74992d72933_football-1-transcode.webm" type="video/webm">
+                            </video>
+                        </div>
+                    </div>
+
+                    <div class="v2-btn-carousel-video-wrap mt-4">
+                        <button class="v2-btn-carousel-video active bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-white px-4 py-2 rounded-md mr-2" data-index="0">Object Tracking</button>
+                        <button class="v2-btn-carousel-video bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-white px-4 py-2 rounded-md mr-2" data-index="1">Manufacturing</button>
+                        <button class="v2-btn-carousel-video bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-white px-4 py-2 rounded-md" data-index="2">Sports</button>
+                    </div>
+                </div>
+
+                <style>
+                    .v2-carousel-video-wrap {
+                        position: relative;
+                    }
+
+                    .v2-carousel-video video {
+                        width: 100%;
+                        height: auto;
+                        display: none;
+                        opacity: 0;
+                        transition: opacity 0.5s ease-in-out;
+                    }
+
+                    .v2-carousel-video.active video {
+                        display: block;
+                        opacity: 1;
+                    }
+
+                    .v2-btn-carousel-video-wrap {
+                        display: flex;
+                        justify-content: center;
+                        gap: 10px;
+                    }
+
+                    .v2-btn-carousel-video {
+                        position: relative;
+                        overflow: hidden;
+                        transition: all 0.3s ease;
+                    }
+                    .v2-btn-carousel-video.active {
+                        background: #0284c7 !important;
+                        color: white !important;
+                    }
+                    .v2-btn-carousel-video.active div {
+                        transition: width 0.1s linear;
+                        background: #f97316 !important; /* Orange-500 */
+                    }
+                    .v2-btn-carousel-video:not(.active) div {
+                        display: none;
+                    }
+                </style>
+
+                <script>
+                    document.addEventListener("DOMContentLoaded", function () {
+                        const buttons = document.querySelectorAll(".v2-btn-carousel-video");
+                        const videos = document.querySelectorAll(".v2-carousel-video");
+                        let currentIndex = 0;
+                        let intervalId;
+
+                        // Initialize progress bars
+                        buttons.forEach(button => {
+                            const progress = document.createElement('div');
+                            progress.className = 'absolute bottom-0 left-0 h-1';
+                            progress.style.width = '0%';
+                            button.appendChild(progress);
+                            button.style.position = 'relative';
+                            button.style.overflow = 'hidden';
+                        });
+
+                        // Function to switch videos
+                        function switchVideo(index) {
+                            buttons.forEach(btn => btn.classList.remove("active"));
+                            videos.forEach(vid => vid.classList.remove("active"));
+                            
+                            currentIndex = index;
+                            buttons[currentIndex].classList.add("active");
+                            videos[currentIndex].classList.add("active");
+                            
+                            const video = videos[currentIndex].querySelector("video");
+                            video.currentTime = 0;
+                            video.play();
+                            
+                            // Reset progress bars
+                            buttons.forEach(btn => {
+                                btn.querySelector('div').style.width = '0%';
+                            });
+                            
+                            // Start progress tracking
+                            const progressBar = buttons[currentIndex].querySelector('div');
+                            const duration = video.duration;
+                            let startTime = Date.now();
+                            
+                            function updateProgress() {
+                                const elapsed = (Date.now() - startTime) / 1000;
+                                const percent = Math.min(100, (elapsed / duration) * 100);
+                                progressBar.style.width = `${percent}%`;
+                                
+                                if (percent >= 100) {
+                                    clearInterval(progressInterval);
+                                    switchVideo((currentIndex + 1) % videos.length);
+                                }
+                            }
+                            
+                            const progressInterval = setInterval(updateProgress, 100);
+                        }
+
+                        // Initialize first video with progress tracking
+                        function initFirstVideo() {
+                            const firstVideo = videos[0].querySelector("video");
+                            firstVideo.onloadedmetadata = function() {
+                                switchVideo(0);
+                            };
+                            firstVideo.load();
+                        }
+                        initFirstVideo();
+                        
+                        // Set up auto-rotation
+                        function startAutoRotation() {
+                            clearInterval(intervalId); // Clear any existing interval
+                            intervalId = setInterval(() => {
+                                switchVideo((currentIndex + 1) % videos.length);
+                            }, 10000); // Rotate every 10 seconds
+                        }
+
+                        // Button click handlers
+                        buttons.forEach((button, index) => {
+                            button.addEventListener("click", function() {
+                                clearInterval(intervalId);
+                                switchVideo(index);
+                                startAutoRotation();
+                            });
+                        });
+
+                        // Pause auto-rotation on hover
+                        const carousel = document.getElementById('videoCarousel');
+                        carousel.addEventListener('mouseenter', () => {
+                            clearInterval(intervalId);
+                            // Pause current video
+                            videos[currentIndex].querySelector("video").pause();
+                        });
+                        carousel.addEventListener('mouseleave', () => {
+                            // Resume current video
+                            videos[currentIndex].querySelector("video").play();
+                            startAutoRotation();
+                        });
+                    });
+                </script>
+            </div>
+        </div>
+
+        <div class="bg-gray-50 dark:bg-gray-700 p-8 rounded-xl shadow-sm">
+            <h2 class="text-2xl font-semibold text-gray-800 dark:text-gray-200 mb-6">Technical Specifications</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-xl font-medium text-gray-800 dark:text-gray-200 mb-3">Model Architecture</h3>
+                    <p class="text-gray-600 dark:text-gray-300">YOLOv8n (nano variant) optimized for real-time performance</p>
+                    <p class="text-gray-600 dark:text-gray-300 mt-2">Input resolution: 640x640 pixels</p>
+                    <p class="text-gray-600 dark:text-gray-300">mAP@0.5: 0.92 on validation set</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-medium text-gray-800 dark:text-gray-200 mb-3">Training Details</h3>
+                    <p class="text-gray-600 dark:text-gray-300">10,000+ annotated ISL gesture images</p>
+                    <p class="text-gray-600 dark:text-gray-300 mt-2">Augmented with varied lighting/backgrounds</p>
+                    <a href="https://yolov8.com/" target="_blank" class="inline-flex items-center text-primary-600 dark:text-primary-400 hover:underline mt-4">
+                        Learn more about YOLOv8
+                        <i class="fas fa-external-link-alt ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

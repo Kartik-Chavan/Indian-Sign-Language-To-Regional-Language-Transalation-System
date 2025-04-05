@@ -295,11 +295,19 @@ def reset():
 # ======================
 @app.route('/')
 def index():
+    return render_template('index.html')
+
+@app.route('/core_app')
+def core_app():
     return render_template('core_app.html')
 
 @app.route('/yolo')
 def yolo():
     return render_template('yolo.html')
+
+@app.route('/team')
+def team():
+    return render_template('team.html')
 
 @app.route('/llm')
 def llm():
