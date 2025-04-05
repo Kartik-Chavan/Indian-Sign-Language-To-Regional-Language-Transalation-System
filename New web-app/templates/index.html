@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sign Language Translator</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+        
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 640px;
+            height: 480px;
+            margin: 0 auto 20px;
+            background-color: #000;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        #video-feed {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        button, select {
+            padding: 10px 15px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+            min-width: 150px;
+        }
+        
+        select {
+            background-color: white;
+        }
+        
+        button {
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        #toggle-detection-btn {
+            background-color: #3498db;
+            color: white;
+            border-color: #2980b9;
+        }
+        
+        #toggle-detection-btn:hover {
+            background-color: #2980b9;
+        }
+        
+        #translate-btn {
+            background-color: #2ecc71;
+            color: white;
+            border-color: #27ae60;
+        }
+        
+        #translate-btn:hover {
+            background-color: #27ae60;
+        }
+        
+        #reset-btn {
+            background-color: #e74c3c;
+            color: white;
+            border-color: #c0392b;
+        }
+        
+        #reset-btn:hover {
+            background-color: #c0392b;
+        }
+        
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        #results {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-top: 20px;
+        }
+        
+        #status-display {
+            padding: 10px;
+            margin: 10px 0;
+            background: #f0f0f0;
+            border-radius: 4px;
+            text-align: center;
+            font-style: italic;
+            color: #333;
+        }
+        
+        @media (max-width: 600px) {
+            .controls {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            button, select {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Sign Language Translator</h1>
+    
+    <div class="video-container">
+        <img id="video-feed" src="{{ url_for('video_feed') }}">
+    </div>
+    
+    <div id="status-display">Ready - Click "Start Detection" to begin</div>
+    
+    <div class="controls">
+        <button id="toggle-detection-btn">Start Detection</button>
+        <select id="language">
+            <option value="en">English</option>
+            <option value="hi">हिंदी (Hindi)</option>
+            <option value="mr">मराठी (Marathi)</option>
+            <option value="pa">ਪੰਜਾਬੀ (Punjabi)</option>
+            <option value="ta">தமிழ் (Tamil)</option>
+        </select>
+        <button id="translate-btn">Translate</button>
+        <button id="reset-btn">Reset</button>
+    </div>
+    
+    <div id="results">
+        <h3>Detected Signs: <span id="sign-sequence">None yet</span></h3>
+        <h3>Translation: <span id="translation-result">Waiting...</span></h3>
+    </div>
+
+    <script>
+        // DOM Elements
+        const signSequence = document.getElementById('sign-sequence');
+        const translationResult = document.getElementById('translation-result');
+        const translateBtn = document.getElementById('translate-btn');
+        const resetBtn = document.getElementById('reset-btn');
+        const languageSelect = document.getElementById('language');
+        const toggleBtn = document.getElementById('toggle-detection-btn');
+        const statusDisplay = document.getElementById('status-display');
+        
+        // Application State
+        let detectedSigns = [];
+        let isTranslating = false;
+        let detectionActive = false;
+        
+        // Initialize the application
+        function initApp() {
+            setupEventListeners();
+            updateStatus("System ready - Click 'Start Detection' to begin");
+        }
+        
+        // Set up all event listeners
+        function setupEventListeners() {
+            toggleBtn.addEventListener('click', toggleDetection);
+            translateBtn.addEventListener('click', handleTranslation);
+            resetBtn.addEventListener('click', handleReset);
+        }
+        
+        // Toggle detection state
+        async function toggleDetection() {
+            try {
+                const response = await fetch('/toggle_detection', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                
+                const data = await response.json();
+                
+                if (data.status === "success") {
+                    detectionActive = data.detection_active;
+                    toggleBtn.textContent = detectionActive 
+                        ? "Stop Detection" 
+                        : "Start Detection";
+                    toggleBtn.style.backgroundColor = detectionActive 
+                        ? "#e74c3c" 
+                        : "#3498db";
+                    
+                    if (detectionActive) {
+                        updateStatus("Detection active - making signs...");
+                        startDetectionPolling();
+                    } else {
+                        updateStatus("Detection stopped");
+                        detectedSigns = [];
+                        updateSignDisplay();
+                        translationResult.textContent = "Detection stopped";
+                    }
+                }
+            } catch (error) {
+                console.error("Toggle error:", error);
+                updateStatus("Error toggling detection");
+            }
+        }
+        
+        // Start polling for detections
+        function startDetectionPolling() {
+            const poll = async () => {
+                if (!detectionActive) return;
+                
+                try {
+                    const response = await fetch('/process');
+                    const data = await response.json();
+                    
+                    if (data.status === "success") {
+                        detectedSigns = data.sequence || [];
+                        updateSignDisplay();
+                        
+                        if (detectedSigns.length > 0) {
+                            updateStatus(`Detected: ${detectedSigns.join(", ")}`);
+                        } else {
+                            updateStatus("Detection active - waiting for signs...");
+                        }
+                    }
+                } catch (error) {
+                    console.error("Polling error:", error);
+                    updateStatus("Detection error - check console");
+                }
+                
+                if (detectionActive) {
+                    setTimeout(poll, 300);
+                }
+            };
+            poll();
+        }
+        
+        // Update the sign display
+        function updateSignDisplay() {
+            signSequence.textContent = detectedSigns.length > 0 
+                ? detectedSigns.join(" → ") 
+                : "None yet";
+        }
+        
+        // Handle translation request
+        async function handleTranslation() {
+            if (isTranslating || detectedSigns.length === 0) return;
+            
+            isTranslating = true;
+            translateBtn.disabled = true;
+            translationResult.textContent = "Translating...";
+            updateStatus("Processing translation...");
+            
+            try {
+                const response = await fetch('/translate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        signs: detectedSigns,
+                        lang: languageSelect.value
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.status === "success") {
+                    translationResult.textContent = data.translation;
+                    updateStatus("Translation complete");
+                } else {
+                    translationResult.textContent = "Translation error";
+                    updateStatus(`Error: ${data.error || "Unknown error"}`);
+                }
+            } catch (error) {
+                console.error("Translation error:", error);
+                translationResult.textContent = "Connection error";
+                updateStatus("Translation failed - check console");
+            } finally {
+                isTranslating = false;
+                translateBtn.disabled = false;
+            }
+        }
+        
+        // Handle reset request
+        async function handleReset() {
+            try {
+                resetBtn.disabled = true;
+                updateStatus("Resetting...");
+                
+                const response = await fetch('/reset', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                
+                const data = await response.json();
+                
+                if (data.status === "reset") {
+                    detectedSigns = [];
+                    updateSignDisplay();
+                    translationResult.textContent = "System reset";
+                    updateStatus("Ready for new signs");
+                    
+                    // Briefly show confirmation
+                    const originalText = resetBtn.textContent;
+                    resetBtn.textContent = "✓ Reset Done";
+                    setTimeout(() => {
+                        resetBtn.textContent = originalText;
+                        resetBtn.disabled = false;
+                    }, 2000);
+                }
+            } catch (error) {
+                console.error("Reset error:", error);
+                updateStatus("Reset failed - check console");
+                resetBtn.disabled = false;
+            }
+        }
+        
+        // Update status display
+        function updateStatus(message) {
+            statusDisplay.textContent = message;
+        }
+        
+        // Initialize the application when DOM is loaded
+        document.addEventListener('DOMContentLoaded', initApp);
+    </script>
+</body>
+</html>

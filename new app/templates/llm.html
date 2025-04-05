@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% block title %}LLM Translation Model{% endblock %}
+
+{% block content %}
+<section class="content-section">
+    <div class="content-container">
+        <h1 class="heading-1">LLM Translation Pipeline</h1>
+        
+        <div class="grid md:grid-cols-2 gap-12 items-center mb-16">
+            <div class="feature-card">
+                <img src="{{ url_for('static', filename='demos/llm_flow.png') }}" alt="LLM Translation Flow" class="rounded-lg w-full">
+            </div>
+            <div>
+                <h2 class="heading-2">From Gestures to Fluent Sentences</h2>
+                <p class="body-text mb-6">
+                    Our advanced LLM model transforms detected signs into grammatically correct sentences across multiple Indian languages.
+                </p>
+                <div class="space-y-4">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 mt-1">
+                            <div class="check-bullet">
+                                <i class="fas fa-check text-white text-xs"></i>
+                            </div>
+                        </div>
+                        <div class="ml-3">
+                            <p class="body-text">Two-stage processing: English formation + regional language translation</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 mt-1">
+                            <div class="check-bullet">
+                                <i class="fas fa-check text-white text-xs"></i>
+                            </div>
+                        </div>
+                        <div class="ml-3">
+                            <p class="body-text">Supports Hindi, Marathi, Tamil, and Punjabi</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="specs-card">
+            <h2 class="heading-2">Language Processing</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="heading-3">Sentence Formation</h3>
+                    <p class="body-text mb-4">Converts gesture sequences into proper English sentences with correct grammar and syntax</p>
+                    <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                        <p class="font-medium text-gray-800 dark:text-gray-200 mb-2">Example:</p>
+                        <p class="body-text">Gestures: [Hello, How, You] → "Hello, how are you?"</p>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="heading-3">Regional Translation</h3>
+                    <p class="body-text mb-4">Accurately translates to regional languages while maintaining cultural context</p>
+                    <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                        <p class="font-medium text-gray-800 dark:text-gray-200 mb-2">Supported Languages:</p>
+                        <ul class="space-y-2 body-text">
+                            <li class="flex items-center"><i class="fas fa-check text-primary-600 mr-2"></i> Hindi</li>
+                            <li class="flex items-center"><i class="fas fa-check text-primary-600 mr-2"></i> Marathi</li>
+                            <li class="flex items-center"><i class="fas fa-check text-primary-600 mr-2"></i> Tamil</li>
+                            <li class="flex items-center"><i class="fas fa-check text-primary-600 mr-2"></i> Punjabi</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-12">
+            <h2 class="heading-2 mb-6">Try It Out</h2>
+            <div class="bg-gray-50 dark:bg-gray-700 p-6 rounded-xl">
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="text-center">
+                        <div class="bg-white dark:bg-gray-600 p-4 rounded-lg shadow-sm h-full">
+                            <i class="fas fa-language text-4xl text-primary-600 mb-3"></i>
+                            <h3 class="heading-3">English</h3>
+                            <p class="body-text mt-2">Input gestures get converted to proper English sentences</p>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <div class="bg-white dark:bg-gray-600 p-4 rounded-lg shadow-sm h-full">
+                            <i class="fas fa-exchange-alt text-4xl text-primary-600 mb-3"></i>
+                            <h3 class="heading-3">Translation</h3>
+                            <p class="body-text mt-2">Select your preferred regional language output</p>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <div class="bg-white dark:bg-gray-600 p-4 rounded-lg shadow-sm h-full">
+                            <i class="fas fa-comments text-4xl text-primary-600 mb-3"></i>
+                            <h3 class="heading-3">Output</h3>
+                            <p class="body-text mt-2">Get fluent translations in your chosen language</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

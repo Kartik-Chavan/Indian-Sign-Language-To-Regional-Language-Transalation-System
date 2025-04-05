@@ -1,0 +1,384 @@
+{% extends "base.html" %}
+
+{% block title %}Our Team{% endblock %}
+
+{% block extra_css %}
+<!-- Swiper CSS -->
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+
+<style>
+    /* Team Section Styles */
+    .team-section {
+        padding: 5rem 1.5rem;
+        background-color: #f9fafb;
+        width: 100%;
+    }
+    
+    .dark .team-section {
+        background-color: #111827;
+    }
+    
+    .team-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        width: 100%;
+    }
+    
+    .team-heading {
+        font-size: 2.5rem;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 1rem;
+        color: #1f2937;
+    }
+    
+    .dark .team-heading {
+        color: #f9fafb;
+    }
+    
+    .team-subheading {
+        font-size: 1.125rem;
+        text-align: center;
+        color: #6b7280;
+        max-width: 700px;
+        margin: 0 auto 3rem auto;
+    }
+    
+    .dark .team-subheading {
+        color: #9ca3af;
+    }
+    
+    /* Swiper Container */
+    .team-swiper {
+        width: 100%;
+        padding: 2rem 0;
+        overflow: hidden;
+    }
+    
+    .swiper-wrapper {
+        display: flex;
+        align-items: stretch;
+    }
+    
+    .swiper-slide {
+        display: flex;
+        justify-content: center;
+        height: auto;
+        width: 300px;
+    }
+    
+    /* Team Card Styles */
+    .team-card {
+        background: white;
+        border-radius: 0.5rem;
+        overflow: hidden;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .dark .team-card {
+        background: #1f2937;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+    }
+    
+    .team-card:hover {
+        transform: translateY(-5px);
+    }
+    
+    .img-wrapper {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        overflow: hidden;
+        margin: 2rem auto 1rem auto;
+        border: 4px solid #e5e7eb;
+    }
+    
+    .dark .img-wrapper {
+        border-color: #374151;
+    }
+    
+    .img-wrapper img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    
+    .team-card-content {
+        padding: 1.5rem;
+        text-align: center;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .team-name {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: #111827;
+    }
+    
+    .dark .team-name {
+        color: #f9fafb;
+    }
+    
+    .team-role {
+        color: #3b82f6;
+        font-weight: 500;
+        margin-bottom: 1rem;
+    }
+    
+    .team-bio {
+        color: #6b7280;
+        margin-bottom: 1.5rem;
+        flex-grow: 1;
+    }
+    
+    .dark .team-bio {
+        color: #9ca3af;
+    }
+    
+    .team-social {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+    }
+    
+    .social-icon {
+        color: #3b82f6;
+        font-size: 1.25rem;
+        transition: color 0.3s ease;
+    }
+    
+    .social-icon:hover {
+        color: #2563eb;
+    }
+    
+    /* Swiper Pagination */
+    .swiper-pagination {
+        position: relative;
+        margin-top: 20px;
+    }
+    
+    .swiper-pagination-bullet {
+        background: #d1d5db;
+        opacity: 1;
+        width: 12px;
+        height: 12px;
+    }
+    
+    .dark .swiper-pagination-bullet {
+        background: #4b5563;
+    }
+    
+    .swiper-pagination-bullet-active {
+        background: #3b82f6;
+    }
+    
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+        .team-heading {
+            font-size: 2rem;
+        }
+        
+        .img-wrapper {
+            width: 120px;
+            height: 120px;
+        }
+        
+        .swiper-slide {
+            width: 280px;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="team-section">
+    <div class="team-container">
+        <h1 class="team-heading">Our Team</h1>
+        <p class="team-subheading">
+            Meet the talented individuals behind our project who work tirelessly to bring you the best experience.
+        </p>
+        
+        <!-- Swiper Container -->
+        <div class="swiper team-swiper">
+            <div class="swiper-wrapper">
+                <!-- Team Member 1 -->
+                <div class="swiper-slide">
+                    <div class="team-card">
+                        <div class="img-wrapper">
+                            <img src="{{ url_for('static', filename='images/kartik.jpg') }}" 
+                                 alt="Kartik Chavan"
+                                 onerror="this.onerror=null;this.src='{{ url_for('static', filename='images/default.avif') }}'">
+                        </div>
+                        <div class="team-card-content">
+                            <h3 class="team-name">Kartik Chavan</h3>
+                            <p class="team-role">Developer</p>
+                            <p class="team-bio">
+                                Leads the project vision and coordinates team efforts to deliver exceptional results.
+                            </p>
+                            <div class="team-social">
+                                <a href="https://www.linkedin.com/in/kartik-chavan-b6b5b4282" target="_blank" class="social-icon">
+                                    <i class="fab fa-linkedin"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Team Member 2 -->
+                <div class="swiper-slide">
+                    <div class="team-card">
+                        <div class="img-wrapper">
+                            <img src="{{ url_for('static', filename='images/atharva.jpg') }}" 
+                                 alt="Atharva Thenge"
+                                 onerror="this.onerror=null;this.src='{{ url_for('static', filename='images/default.avif') }}'">
+                        </div>
+                        <div class="team-card-content">
+                            <h3 class="team-name">Atharva Thenge</h3>
+                            <p class="team-role">Developer</p>
+                            <p class="team-bio">
+                                Implements core features and ensures the application runs smoothly across all platforms.
+                            </p>
+                            <div class="team-social">
+                                <a href="https://www.linkedin.com/in/atharva-thenge-044520283/" target="_blank" class="social-icon">
+                                    <i class="fab fa-linkedin"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Team Member 3 -->
+                <div class="swiper-slide">
+                    <div class="team-card">
+                        <div class="img-wrapper">
+                            <img src="{{ url_for('static', filename='images/Pratham.jpg') }}" 
+                                 alt="Pratham Werulkar"
+                                 onerror="this.onerror=null;this.src='{{ url_for('static', filename='images/default.avif') }}'">
+                        </div>
+                        <div class="team-card-content">
+                            <h3 class="team-name">Pratham Werulkar</h3>
+                            <p class="team-role">Developer</p>
+                            <p class="team-bio">
+                                Focuses on backend functionality and database architecture for optimal performance.
+                            </p>
+                            <div class="team-social">
+                                <a href="https://www.linkedin.com/in/pratham-werulkar-2a8006261/" target="_blank" class="social-icon">
+                                    <i class="fab fa-linkedin"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Team Member 4 -->
+                <div class="swiper-slide">
+                    <div class="team-card">
+                        <div class="img-wrapper">
+                            <img src="{{ url_for('static', filename='images/default.avif') }}" 
+                                 alt="Aditya Jadhav">
+                        </div>
+                        <div class="team-card-content">
+                            <h3 class="team-name">Aditya Jadhav</h3>
+                            <p class="team-role">Developer</p>
+                            <p class="team-bio">
+                                Works on UI/UX improvements and ensures the application is accessible to all users.
+                            </p>
+                            <div class="team-social">
+                                <a href="https://www.linkedin.com/in/aditya-jadhav/" target="_blank" class="social-icon">
+                                    <i class="fab fa-linkedin"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Pagination -->
+            <div class="swiper-pagination"></div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<!-- Font Awesome -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+
+<!-- Swiper JS -->
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const teamSwiper = new Swiper('.team-swiper', {
+            // Enable both touch and mouse control
+            simulateTouch: true,
+            touchRatio: 1,
+            touchAngle: 45,
+            grabCursor: true,
+            
+            // Mousewheel control for desktop
+            mousewheel: {
+                forceToAxis: true,
+                invert: false,
+                sensitivity: 1
+            },
+            
+            // Keyboard control for accessibility
+            keyboard: {
+                enabled: true,
+                onlyInViewport: true
+            },
+            
+            // Navigation
+            allowSlidePrev: true,
+            allowSlideNext: true,
+            
+            // Disable loop to ensure all slides are accessible
+            loop: false,
+            
+            // Auto adjust slides
+            slidesPerView: 'auto',
+            spaceBetween: 20,
+            freeMode: true,
+            
+            // Center the first slide
+            centeredSlides: false,
+            
+            // Pagination
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+                dynamicBullets: true
+            },
+            
+            // Responsive breakpoints
+            breakpoints: {
+                320: {
+                    slidesPerView: 1,
+                    spaceBetween: 10
+                },
+                640: {
+                    slidesPerView: 2,
+                    spaceBetween: 20
+                },
+                1024: {
+                    slidesPerView: 3,
+                    spaceBetween: 30
+                },
+                1280: {
+                    slidesPerView: 4,
+                    spaceBetween: 30
+                }
+            }
+        });
+    });
+</script>
+{% endblock %}
