@@ -24,7 +24,7 @@ TARGET_FPS = 15           # Video display frame rate (increased from 10)
 DETECTION_INTERVAL = 0.2  # Detection processing interval (reduced from 0.3)
 ANALYSIS_INTERVAL = 0.8   # Sign analysis interval (reduced from 1.0)
 # Add to configuration
-DEFAULT_STATIC_IMAGE = r"C:\Drive F\Code\Project\IWeb-app-Indian-Sign-Language-To-Multiple-Regional-Language-Conversion - Copy\web-app\static\impact-of-ai-sign-language-translators.jpg"  # Add this path
+DEFAULT_STATIC_IMAGE = r"C:\Drive F\Code\Project\IWeb-app-Indian-Sign-Language-To-Multiple-Regional-Language-Conversion - Copy\New web-app\static\impact-of-ai-sign-language-translators.jpg"  # Add this path
 
 
 # ======================

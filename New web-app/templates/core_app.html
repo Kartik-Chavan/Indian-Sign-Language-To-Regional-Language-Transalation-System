@@ -2,19 +2,38 @@
 <html>
 <head>
     <title>Sign Language Translator</title>
+    <link rel="icon" href="../static/logo.png" sizes="32x32" />
+    <link rel="icon" href="../static/logo.png" sizes="16x16" />
+    <link rel="apple-touch-icon" href="../static/logo.png" />
+    <link rel="shortcut icon" href="../static/logo.png" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        /* Keep original styles as fallback */
         body {
             font-family: 'Segoe UI', Arial, sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
             background-color: #f9f9f9;
-        }
-        
-        h1 {
-            text-align: center;
-            color: #2c3e50;
-            margin-bottom: 30px;
         }
         
         .video-container {
@@ -35,85 +54,6 @@
             object-fit: cover;
         }
         
-        .controls {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
-            margin-bottom: 20px;
-        }
-        
-        button, select {
-            padding: 10px 15px;
-            border-radius: 4px;
-            border: 1px solid #ddd;
-            font-size: 16px;
-            min-width: 150px;
-        }
-        
-        select {
-            background-color: white;
-        }
-        
-        button {
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s;
-        }
-        
-        #toggle-detection-btn {
-            background-color: #3498db;
-            color: white;
-            border-color: #2980b9;
-        }
-        
-        #toggle-detection-btn:hover {
-            background-color: #2980b9;
-        }
-        
-        #translate-btn {
-            background-color: #2ecc71;
-            color: white;
-            border-color: #27ae60;
-        }
-        
-        #translate-btn:hover {
-            background-color: #27ae60;
-        }
-        
-        #reset-btn {
-            background-color: #e74c3c;
-            color: white;
-            border-color: #c0392b;
-        }
-        
-        #reset-btn:hover {
-            background-color: #c0392b;
-        }
-        
-        button:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-        
-        #results {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            margin-top: 20px;
-        }
-        
-        #status-display {
-            padding: 10px;
-            margin: 10px 0;
-            background: #f0f0f0;
-            border-radius: 4px;
-            text-align: center;
-            font-style: italic;
-            color: #333;
-        }
-        
         @media (max-width: 600px) {
             .controls {
                 flex-direction: column;
@@ -126,33 +66,76 @@
         }
     </style>
 </head>
-<body>
-    <h1>Sign Language Translator</h1>
-    
-    <div class="video-container">
-        <img id="video-feed" src="{{ url_for('video_feed') }}">
-    </div>
-    
-    <div id="status-display">Ready - Click "Start Detection" to begin</div>
-    
-    <div class="controls">
-        <button id="toggle-detection-btn">Start Detection</button>
-        <select id="language">
-            <option value="en">English</option>
-            <option value="hi">हिंदी (Hindi)</option>
-            <option value="mr">मराठी (Marathi)</option>
-            <option value="pa">ਪੰਜਾਬੀ (Punjabi)</option>
-            <option value="ta">தமிழ் (Tamil)</option>
-        </select>
-        <button id="translate-btn">Translate</button>
-        <button id="reset-btn">Reset</button>
-    </div>
-    
-    <div id="results">
-        <h3>Detected Signs: <span id="sign-sequence">None yet</span></h3>
-        <h3>Translation: <span id="translation-result">Waiting...</span></h3>
+<body class="bg-gray-50 dark:bg-gray-900">
+    <!-- Navigation -->
+    <nav class="bg-white dark:bg-gray-800 shadow-sm py-4 px-6 md:px-12 lg:px-24">
+        <div class="flex justify-between items-center">
+            <div class="flex items-center">
+                <a href="/">
+                    <img src="../static/logo.png" alt="Company Logo" class="h-8">
+                </a>
+            </div>
+            <div class="hidden md:flex space-x-8">
+                <a href="/" class="text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium">Home</a>
+                <a href="/yolo" class="text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium">YOLO</a>
+                <a href="/llm" class="text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium">LLM</a>
+                <a href="/api" class="text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium">API</a>
+            </div>
+            <!-- Dark Mode Toggle -->
+            <div class="flex items-center">
+                <button id="themeToggle" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200">
+                    <i class="fas fa-moon dark:hidden"></i>
+                    <i class="fas fa-sun hidden dark:block"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="max-w-6xl mx-auto py-12 px-6">
+        <h1 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-8 text-center">Sign Language Translator</h1>
+        
+        <!-- Video Feed -->
+        <div class="relative w-full max-w-4xl h-96 md:h-[500px] mx-auto mb-8 bg-black rounded-xl overflow-hidden shadow-lg">
+            <img id="video-feed" src="{{ url_for('video_feed') }}" class="w-full h-full object-contain">
+        </div>
+        
+        <!-- Status Display -->
+        <div id="status-display" class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg text-center text-gray-700 dark:text-gray-300 mb-8 max-w-4xl mx-auto">
+            Ready - Click "Start Detection" to begin
+        </div>
+        
+        <!-- Controls -->
+        <div class="flex flex-wrap justify-center gap-4 mb-8">
+            <button id="toggle-detection-btn" class="bg-primary-600 hover:bg-primary-700 text-white px-6 py-3 rounded-md font-medium transition">
+                Start Detection
+            </button>
+            <select id="language" class="bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-md px-4 py-2 focus:ring-primary-500 focus:border-primary-500">
+                <option value="en">English</option>
+                <option value="hi">हिंदी (Hindi)</option>
+                <option value="mr">मराठी (Marathi)</option>
+                <option value="pa">ਪੰਜਾਬੀ (Punjabi)</option>
+                <option value="ta">தமிழ் (Tamil)</option>
+            </select>
+            <button id="translate-btn" class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-md font-medium transition">
+                Translate
+            </button>
+            <button id="reset-btn" class="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-md font-medium transition">
+                Reset
+            </button>
+        </div>
+        
+        <!-- Results -->
+        <div id="results" class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm max-w-4xl mx-auto">
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Detected Signs:</h3>
+            <p id="sign-sequence" class="text-gray-700 dark:text-gray-300 mb-4">None yet</p>
+            
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Translation:</h3>
+            <p id="translation-result" class="text-gray-700 dark:text-gray-300">Waiting...</p>
+        </div>
     </div>
 
+    <!-- Original JavaScript (unchanged) -->
     <script>
         // DOM Elements
         const signSequence = document.getElementById('sign-sequence');
@@ -331,8 +314,62 @@
             statusDisplay.textContent = message;
         }
         
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+        
+        // Initialize theme
+        const savedTheme = localStorage.getItem('theme') || 
+                         (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        html.classList.toggle('dark', savedTheme === 'dark');
+        
+        // Setup theme toggle
+        themeToggle?.addEventListener('click', () => {
+            const isDark = html.classList.toggle('dark');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        });
+
         // Initialize the application when DOM is loaded
         document.addEventListener('DOMContentLoaded', initApp);
     </script>
+    
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12 px-6 md:px-12 lg:px-24">
+        <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div>
+                <a href="/">
+                    <img src="../static/logo.png" alt="Company Logo" class="h-8 mb-6 invert dark:invert-0">
+                </a>
+                <p class="text-gray-400">Real-time ISL to multi-language translation</p>
+            </div>
+            <div>
+                <h4 class="text-lg font-semibold mb-4">Products</h4>
+                <ul class="space-y-2">
+                    <li><a href="#" class="text-gray-400 hover:text-white">Digital Workers</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white">Platform</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white">Solutions</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-lg font-semibold mb-4">Company</h4>
+                <ul class="space-y-2">
+                    <li><a href="/our-team" class="text-gray-400 hover:text-white">About Us</a></li>
+                    <li><a href="/404" class="text-gray-400 hover:text-white">Careers</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white">Contact</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-lg font-semibold mb-4">Connect</h4>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook-f"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto pt-12 mt-12 border-t border-gray-800 text-center text-gray-400">
+            <p>© 2023 MudraTranslate. All rights reserved.</p>
+        </div>
+    </footer>
 </body>
 </html>
