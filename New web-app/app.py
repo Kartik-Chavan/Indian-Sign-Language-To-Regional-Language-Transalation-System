@@ -18,7 +18,7 @@ CORS(app)
 # Configuration
 # ======================
 MODEL_PATH = r"C:\Drive F\Code\Project\Indian-Sign-Language-To-Multiple-Regional-Language-Conversion\src\fFnal_training_Results\weights\best.pt"
-GEMINI_API_KEY = "AIzaSyDCGfIOe2f6Un0QX7WHeLL3Nwp652kMxk4"
+GEMINI_API_KEY = "AIzaSyBy01VKLFQHjqDWAM6ZgUMblK8xr10st20"
 # Optimized Smooth Detection Settings
 TARGET_FPS = 15           # Video display frame rate (increased from 10)
 DETECTION_INTERVAL = 0.2  # Detection processing interval (reduced from 0.3)
