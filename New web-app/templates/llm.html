@@ -4,11 +4,13 @@
 {% block content %}
 <section class="content-section">
     <div class="content-container">
-        <h1 class="heading-1">LLM Translation Pipeline</h1>
+        
+
         
         <div class="grid md:grid-cols-2 gap-12 items-center mb-16">
             <div class="feature-card">
-                <img src="{{ url_for('static', filename='demos/llm_flow.png') }}" alt="LLM Translation Flow" class="rounded-lg w-full">
+                <img src="{{ url_for('static', filename='LLM WORKFLOW LIGHT.png') }}" alt="LLM Translation Flow" class="rounded-lg w-full dark:hidden">
+                <img src="{{ url_for('static', filename='LLM WORKFLOW DARK.png') }}" alt="LLM Translation Flow" class="rounded-lg w-full hidden dark:block">
             </div>
             <div>
                 <h2 class="heading-2">From Gestures to Fluent Sentences</h2>

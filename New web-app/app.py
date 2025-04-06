@@ -313,6 +313,10 @@ def team():
 def llm():
     return render_template('llm.html')
 
+@app.route('/500')
+def p500():
+    return render_template('500.html')
+
 @app.route('/api')
 def api():
     return render_template('api.html')
