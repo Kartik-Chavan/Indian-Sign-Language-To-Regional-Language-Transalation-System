@@ -1,4 +1,5 @@
 
+
 # Indian-Sign-Language-To-Regional-Language-Transalation-System
 
 This project is a Sign Language Detection and Translation System that uses computer vision and machine learning to detect sign language gestures and translate them into multiple regional languages. The system is built using YOLO (You Only Look Once) for object detection and Google's Gemini API for generating coherent sentences from detected gestures. The application provides a user-friendly interface built with PyQt5, allowing users to interact with the system in real-time.
@@ -50,6 +51,12 @@ An images folder contains collages of all gestures, making it easy for users to 
 ├── DatasetCreation.py       # Script for creating custom datasets
 ├── Model_Training_V12.ipynb # Jupyter notebook for training YOLOv12 models
 ├── Sign_Lang_YOLOV8.ipynb   # Jupyter notebook for training YOLOv8 models
+├── New web-app/			 # Web-app Implementation for (Better UI) 
+│   ├── node modules/ 
+│   ├── static/    
+│   ├── templates/
+│   ├── app.py               # Main application for web-app 
+│   └──etc..
 ├── images/                  # Folder containing gesture collages for reference
 ├── src/                     # Source code and resources
 │   ├── scripts/             # Font files for different languages
